@@ -12,4 +12,4 @@ with open(fpath, 'r') as f:
         # Update the counter
         count_all.update(terms_all)
     # Print the first 5 most frequent words
-    print(count_all.most_common(10))
+    print(count_all.most_common(50))
