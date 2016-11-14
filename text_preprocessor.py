@@ -12,8 +12,8 @@ def preprocess(tweet, lowercase=False):
         tokens = [token.lower() for token in tokens]
     return tokens
  
-with open('data/stream_trump.json', 'r') as f:
-    for line in f:
-        tweet = json.loads(line)
-        tokens = preprocess(tweet.get('text', ''))
-        print(tokens)
+# with open('data/stream_trump.json', 'r') as f:
+#     for line in f:
+#         tweet = json.loads(line)
+#         tokens = preprocess(tweet.get('text', ''))
+    
