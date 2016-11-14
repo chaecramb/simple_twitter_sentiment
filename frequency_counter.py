@@ -2,6 +2,7 @@ from text_preprocessor import preprocess
 import json
 from collections import Counter
 from nltk.corpus import stopwords
+from nltk import bigrams 
 import string 
 
 fpath = 'data/stream_trump.json'
@@ -29,13 +30,16 @@ def terms_all(tweet):
     return [term for term in preprocess(tweet.get('text',''))
               if term not in stop]
 
+def terms_bigrams(tweet):
+    return bigrams(terms_all(tweet))
+
 with open(fpath, 'r') as f:
     count = 0
     count_all = Counter()
     for line in f:
         tweet = json.loads(line)
         # Create a list with all the terms
-        terms = terms_all(tweet)
+        terms = terms_bigrams(tweet)
         # Update the counter
         count_all.update(terms)
         count += 1
