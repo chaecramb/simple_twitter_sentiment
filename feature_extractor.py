@@ -64,8 +64,10 @@ def process_tweets(filtering_method, filepath):
     else:
         term_frequency = Counter()
 
+    number_of_tweets = 0
     with open(fpath, 'r') as f:
         for line in f: 
+            number_of_tweets += 1
             tweet = json.loads(line)
             terms = terms_only(tweet) if cooccurences else filtering_method(tweet)
 
@@ -74,4 +76,4 @@ def process_tweets(filtering_method, filepath):
             else:
                 term_frequency.update(terms) 
 
-    return terms_cooccurences(term_frequency) if cooccurences else term_frequency 
+    return (term_frequency, number_of_tweets)
