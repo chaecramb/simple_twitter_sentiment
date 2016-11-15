@@ -2,10 +2,11 @@ from feature_extractor import *
 from sentiment_analysis import *
 from datetime import datetime
 import operator
+import terms_of_interest
 
-filename = 'sentiment_log.txt'
+filepath = 'log/sentiment_log.txt'
 
-with open(filename, "a") as f:
+with open(filepath, "a") as f:
     f.write(str(datetime.now()) + '\n\n')
 
     print('Extracting features from tweets...')  
@@ -99,26 +100,18 @@ with open(filename, "a") as f:
                         and b[0][1] not in opinion_lexicon.vocab['negative_vocab']
                       ][:-21:-1]
 
-    print('Writing to {0}...'.format(filename))
+    print('Writing to {0}...'.format(filepath))
 
     f.write('Number of tweets analysed: {0}\n\n'.format(number_of_tweets))
 
-    f.write('Opinion on specifc terms\n')   
-    f.write('Barack Obama: ' + str(semantic_orientation_bigrams.get(('barack', 'obama'), 'not present')) + '\n')
-    f.write('Donald Trump: ' + str(semantic_orientation_bigrams.get(('donald', 'trump'), 'not present')) + '\n')
-    f.write('York Times: ' + str(semantic_orientation_bigrams.get(('york', 'times'), 'not present')) + '\n')
-    f.write('Melania Trump: ' + str(semantic_orientation_bigrams.get(('melania', 'trump'), 'not present')) + '\n')
-    f.write('Steve Bannon: ' + str(semantic_orientation_bigrams.get(('steve', 'bannon'), 'not present')) + '\n')
-    f.write('Trump sticking: ' + str(semantic_orientation_bigrams.get(('trump', 'sticking'), 'not present')) + '\n')
-    f.write('Trump win: ' + str(semantic_orientation_bigrams.get(('trump', 'win'), 'not present')) + '\n')
-    f.write("politics Trump's: " + str(semantic_orientation_bigrams.get(('politics', "trump's"), 'not present')) + '\n')
-    f.write("Trump's cabinet: " + str(semantic_orientation_bigrams.get(("trump's", 'cabinet'), 'not present')) + '\n')
-    f.write('Trump: ' + str(semantic_orientation_single.get('trump', 'not present')) + '\n')
-    f.write('Donald: ' + str(semantic_orientation_single.get('donald', 'not present')) + '\n')
-    f.write('Obama: ' + str(semantic_orientation_single.get('obama', 'not present')) + '\n')
-    f.write('Pence: ' + str(semantic_orientation_single.get('pence', 'not present')) + '\n')
-    f.write('Michelle: ' + str(semantic_orientation_single.get('michelle', 'not present')) + '\n')
-    f.write('Melania: ' + str(semantic_orientation_single.get('melania', 'not present')) + '\n')
+    f.write('Opinion on terms of interest\n')
+    f.write('Term | Semantic Orientation\n') 
+    for t1, t2 in terms_of_interest.terms['bigrams']:
+        f.write("{0} {1} | {2}\n".format(t1, t2, str(semantic_orientation_bigrams.get((t1, t2), 'not present'))))
+
+    for term in terms_of_interest.terms['single']:
+        f.write("{0} | {1}\n".format(term, str(semantic_orientation_single.get((term), 'not present'))))
+
     f.write('\n')
 
     f.write('Most positive single terms\n') 
@@ -135,7 +128,6 @@ with open(filename, "a") as f:
      in enumerate(top_neg_single)]
     f.write('\n')
 
-    f.write('\n')
     f.write('Most positive bigrams\n')
     f.write('Position | Terms | Semantic Orientation\n') 
     [f.write("{0} | {1} {2} | {3}\n".format(i+1, t1, t2, p)) 

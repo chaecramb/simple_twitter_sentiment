@@ -6,6 +6,6 @@ def prepare_bar_chart_data(filter_method, filepath):
     labels, freq = zip(*word_freq)
     data = {'data': freq, 'x': labels}
     bar = vincent.Bar(data, iter_idx='x')
-    bar.to_json('term_freq.json')
+    bar.to_json('web/term_freq.json')
 
 prepare_bar_chart_data(terms_only, 'data/stream_trump.json')
