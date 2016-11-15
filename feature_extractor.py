@@ -33,14 +33,13 @@ def terms_all(tweet, lower=True):
               if term not in stop]
 
 def terms_bigrams(tweet):
-    return bigrams(terms_all(tweet, lower=True))
+    return list(bigrams(terms_all(tweet, lower=True)))
 
-def build_cooccurrence_matrix(matrix, terms):
-    for i in range(len(terms)-1):            
-        for j in range(i+1, len(terms)):
-            w1, w2 = sorted([terms[i], terms[j]])                
-            if w1 != w2:
-                matrix[w1][w2] += 1
+def build_cooccurrence_matrix(matrix, bigrams, terms_only):
+    for i in range(len(bigrams)-1):            
+        for j in range(i+1, len(terms_only)):
+            w1, w2 = [bigrams[i], terms_only[j]]             
+            matrix[w1][w2] += 1
     return matrix
 
 def terms_cooccurences(cooccur_matrix):
@@ -72,8 +71,22 @@ def process_tweets(filtering_method, filepath):
             terms = terms_only(tweet) if cooccurences else filtering_method(tweet)
 
             if cooccurences:
-                term_frequency = build_cooccurrence_matrix(term_frequency, terms)
+                bigrams = terms_bigrams(tweet)
+                term_frequency = build_cooccurrence_matrix(term_frequency, bigrams, terms)
             else:
                 term_frequency.update(terms) 
 
     return (term_frequency, number_of_tweets)
+
+
+if __name__ == '__main__':
+    common_bigrams = process_tweets(terms_bigrams, 'data/stream_trump.json')[0].most_common(20)
+    common_terms = process_tweets(terms_only, 'data/stream_trump.json')[0].most_common(20)
+
+    print('Most common bigrams')
+    [print(str(i+1) + ':', a, b + ':', c) for i, ((a,b), c) in enumerate(common_bigrams)]
+    print()
+    print('Most common terms')
+    [print(str(i+1) + ':', t + ':', c) for i, (t, c) in enumerate(common_terms)]
+
+    
