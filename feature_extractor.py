@@ -6,6 +6,7 @@ from nltk import bigrams
 import string 
 from collections import defaultdict
 import operator
+import opinion_lexicon
 
 fpath = 'data/stream_trump.json'
 
@@ -84,16 +85,3 @@ def process_tweets(filtering_method, filepath, bigram=False):
                 term_frequency.update(terms) 
 
     return (term_frequency, number_of_tweets)
-
-
-if __name__ == '__main__':
-    common_bigrams = process_tweets(terms_bigrams, 'data/stream_trump.json')[0].most_common(20)
-    common_terms = process_tweets(terms_only, 'data/stream_trump.json')[0].most_common(20)
-
-    print('Most common bigrams')
-    [print(str(i+1) + ':', a, b + ':', c) for i, ((a,b), c) in enumerate(common_bigrams)]
-    print()
-    print('Most common terms')
-    [print(str(i+1) + ':', t + ':', c) for i, (t, c) in enumerate(common_terms)]
-
-    
