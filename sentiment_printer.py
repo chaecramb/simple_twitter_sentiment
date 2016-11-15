@@ -61,7 +61,6 @@ if __name__ == '__main__':
     print('Opinion on specifc terms:')   
     print('Barack Obama:', semantic_orientation_bigrams.get(('barack', 'obama'), 'not present'))
     print('Donald Trump:', semantic_orientation_bigrams.get(('donald', 'trump'), 'not present'))
-    print('White nationalism:', semantic_orientation_bigrams.get(('white', 'nationalism'), 'not present'))
     print('York Times:', semantic_orientation_bigrams.get(('york', 'times'), 'not present'))
     print('Melania Trump:', semantic_orientation_bigrams.get(('melania', 'trump'), 'not present'))
     print('Steve Bannon:', semantic_orientation_bigrams.get(('steve', 'bannon'), 'not present'))
