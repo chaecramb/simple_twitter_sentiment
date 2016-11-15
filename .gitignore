@@ -1,1 +1,3 @@
 data/*
+__pycache__
+term_freq.json
