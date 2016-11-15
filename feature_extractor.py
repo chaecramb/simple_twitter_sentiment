@@ -35,11 +35,17 @@ def terms_all(tweet, lower=True):
 def terms_bigrams(tweet):
     return list(bigrams(terms_all(tweet, lower=True)))
 
-def build_cooccurrence_matrix(matrix, bigrams, terms_only):
-    for i in range(len(bigrams)-1):            
-        for j in range(i+1, len(terms_only)):
-            w1, w2 = [bigrams[i], terms_only[j]]             
-            matrix[w1][w2] += 1
+def build_cooccurrence_matrix(matrix, terms_only, bigrams={}):
+    if bigrams:
+        for i in range(len(bigrams)-1):            
+            for j in range(i+1, len(terms_only)):
+                w1, w2 = [bigrams[i], terms_only[j]]             
+                matrix[w1][w2] += 1
+    else:
+        for i in range(len(terms_only)-1):            
+            for j in range(i+1, len(terms_only)):
+                w1, w2 = [terms_only[i], terms_only[j]]             
+                matrix[w1][w2] += 1        
     return matrix
 
 def terms_cooccurences(cooccur_matrix):
@@ -54,7 +60,7 @@ def terms_cooccurences(cooccur_matrix):
     # Return the most frequent co-occurrences
     return sorted(most_common, key=operator.itemgetter(1), reverse=True)
 
-def process_tweets(filtering_method, filepath):
+def process_tweets(filtering_method, filepath, bigram=False):
     cooccurences = filtering_method == terms_cooccurences
 
     if cooccurences:
@@ -71,8 +77,9 @@ def process_tweets(filtering_method, filepath):
             terms = terms_only(tweet) if cooccurences else filtering_method(tweet)
 
             if cooccurences:
-                bigrams = terms_bigrams(tweet)
-                term_frequency = build_cooccurrence_matrix(term_frequency, bigrams, terms)
+                bigrams = {}
+                if bigram: bigrams = terms_bigrams(tweet)
+                term_frequency = build_cooccurrence_matrix(term_frequency, terms, bigrams)
             else:
                 term_frequency.update(terms) 
 
