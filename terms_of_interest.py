@@ -9,13 +9,18 @@ terms = {
         ("trump", "win"),
         ("politics", "trump's"),
         ("trump's", "cabinet"),
-        ("hilary", "clinton"),
-        ("mike", "pence")],
+        ("hillary", "clinton"),
+        ("mike", "pence"),
+        ("michelle", "obama")],
     "single":
-        ["hilary"
-        "trump"
-        "donald"
-        "obama"
-        "pence"
-        "michelle"]
+        ["hillary",
+        "trump",
+        "donald",
+        "obama",
+        "pence",
+        "michelle",
+        "win",
+        "great",
+        "terrible", 
+        "awful"]
 }
