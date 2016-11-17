@@ -1,6 +1,6 @@
 # Twitter sentiment analysis tools
 
-A simple sentiment analysis app written as a learning exercise. Credit to Marco Bonzanini for his [tutorial](https://marcobonzanini.com/2015/03/02/mining-twitter-data-with-python-part-1/) which I worked through, adapted and extended based upon my own interests. 
+A few simple scripts for sentiment analysis written as a learning exercise. Credit to Marco Bonzanini for his [tutorial](https://marcobonzanini.com/2015/03/02/mining-twitter-data-with-python-part-1/) which I worked through, adapted and extended based upon my own interests. 
 
 There's a significant amount more that could/should be done to it, but I will probably leave it here as it has served its purpose of allowing me to experiment with the methods involved. I plan to follow up with a more sophisticated version.
 
@@ -19,6 +19,6 @@ Tweets containing the query term will be saved to a json file in the specified d
 
 ### Sentiment analysis
 
-Run `sentiment_analysis.py` to perform analysis of the downloaded tweets (filepath is currently hard-coded, so will need to modified), and save to a log file within the log folder. Specific terms of interest will be read from `terms_of_interest.py` and added to the analysis. Semantic orientation with be record for these terms along with the top 20 most positive and negative terms (both for single words and for bigrams).
+Run `sentiment_analysis.py` to perform analysis of the downloaded tweets (filepath is currently hard-coded, so will need to be modified), and save to a log file within the log folder. Specific terms of interest will be read from `terms_of_interest.py` and added to the analysis. Semantic orientation will be record for these terms along with the top 20 most positive and negative terms (for both single words and for bigrams).
 
 
