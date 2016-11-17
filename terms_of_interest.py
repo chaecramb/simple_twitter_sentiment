@@ -3,11 +3,8 @@ terms = {
         [("barack", "obama"),
         ("donald", "trump"),
         ("york", "times"),
-        ("melania", "trump"),
         ("steve", "bannon"),
-        ("trump", "sticking"),
         ("trump", "win"),
-        ("politics", "trump's"),
         ("trump's", "cabinet"),
         ("hillary", "clinton"),
         ("mike", "pence"),
@@ -18,9 +15,6 @@ terms = {
         "donald",
         "obama",
         "pence",
-        "michelle",
-        "win",
-        "great",
-        "terrible", 
-        "awful"]
+        "michelle"
+        ]
 }
