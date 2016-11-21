@@ -127,7 +127,7 @@ def extract_frequencies(filtering_method, filepath, bigram=False):
     Args:
         fitlering_method (function): filtering method used in order to 
             select the terms that will be returned
-        filepath (string): filepath json file contain downloaded tweet data
+        filepath (string): filepath for json file contain downloaded tweet data
 
     Keyword args:
         bigram (bool): optional flag to extract bigrams rather than single
