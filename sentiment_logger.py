@@ -32,29 +32,29 @@ with open(filepath, "a") as f:
                                                          bigram=True)
 
     print('Creating frequency of co-occurrence matrix for single terms...')
-    frequency_cooccur_single = build_cooccurrences('data/stream_trump.json') 
+    cooccur_single = build_cooccurrences('data/stream_trump.json') 
 
     print('Creating frequency of co-occurrence matrix for bigrams...')
-    frequency_cooccur_bigrams = build_cooccurrences('data/stream_trump.json', 
+    cooccur_bigrams = build_cooccurrences('data/stream_trump.json', 
                                                        bigram=True) 
 
     print('Calculating probabilities for single terms...')
-    prob_single, prob_cooccur_single = compute_term_probabilites(frequency_single, 
-                                                          frequency_cooccur_single, 
+    prob_single, prob_cooccur_single = compute_probabilites(frequency_single, 
+                                                          cooccur_single, 
                                                           number_of_tweets)
 
     print('Calculating probabilities for bigrams...')
-    prob_bigrams, prob_cooccur_bigrams = compute_term_probabilites(frequency_bigrams, 
-                                              frequency_cooccur_bigrams, 
+    prob_bigrams, prob_cooccur_bigrams = compute_probabilites(frequency_bigrams, 
+                                              cooccur_bigrams, 
                                               number_of_tweets)
 
     print('Calculating pointwise mutual information for single terms...')
-    single_pmi = compute_pmi(frequency_cooccur_single, 
+    single_pmi = compute_pmi(cooccur_single, 
                              prob_cooccur_single, 
                              prob_single)
   
     print('Calculating pointwise mutual information for bigrams...')
-    bigrams_pmi = compute_pmi(frequency_cooccur_bigrams, 
+    bigrams_pmi = compute_pmi(cooccur_bigrams, 
                               prob_cooccur_bigrams, 
                               prob_single, 
                               prob_bigrams)
