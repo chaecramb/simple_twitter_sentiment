@@ -1,9 +1,16 @@
+""" Sentiment logger
+
+Runs feature extraction and sentiment analysis on a given file and logs
+the results. 
+"""
+
 from feature_extractor import *
 from sentiment_analysis import *
 from datetime import datetime
 import operator
 import terms_of_interest
 
+# TODO: extract hardcoded path to command line argument
 filepath = 'log/sentiment_log.txt'
 
 with open(filepath, "a") as f:

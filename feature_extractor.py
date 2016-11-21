@@ -133,8 +133,6 @@ def extract_frequencies(filtering_method, filepath, bigram=False):
         bigram (bool): optional flag to extract bigrams rather than single
             terms. Default to False.
     """
-
-    # TODO: look into scipy.sparse to use sparse matrix instead of defaultdict
     term_frequency = Counter()
 
     number_of_tweets = 0
@@ -192,6 +190,8 @@ def build_cooccurrences(filepath, bigram=False):
             if True. False by default
     """
     term_frequency = defaultdict(lambda : defaultdict(int))
+    # TODO: look into scipy.sparse to use sparse matrix instead of defaultdict
+
 
     with open(fpath, 'r') as f:
         for line in f: 
