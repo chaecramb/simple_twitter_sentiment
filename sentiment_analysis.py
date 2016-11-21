@@ -15,16 +15,12 @@ def compute_probabilites(frequencies, cooccur_matrix, number_of_tweets):
     """ Calculates the probabilty of oberservating individual terms or bigrams
     and of individual terms or bigrams co-occurring with another term.
 
-    Parameters
-    ----------
-    freqencies : dict
-        Dictionary of term or bigram frequencies
-    cooccur_matrix : dict
-        2d dict matrix of two terms, or a bigram and a term, and a count
-        of their co-occurrences
+    Args:
+        freqencies (dict): Dictionary of term or bigram frequencies
+        cooccur_matrix (dict): 2d dict matrix of two terms, or a bigram and a
+        term, and a count of their co-occurrences
 
-    Returns
-    -------
+    Returns:
     tuple
         prob_term : a dict of terms and their probabilites
         prob_cooccur : a dict matrix of two terms (or a bigram and a term) 
