@@ -10,28 +10,26 @@ with open(filepath, "a") as f:
     f.write(str(datetime.now()) + '\n\n')
 
     print('Extracting features from tweets...')  
-    common_bigrams = process_tweets(terms_bigrams, 
+    common_bigrams = extract_frequencies(terms_bigrams, 
                      'data/stream_trump.json')[0].most_common(20)
-    common_terms = process_tweets(terms_only, 
+    common_terms = extract_frequencies(terms_only, 
                    'data/stream_trump.json')[0].most_common(20)
 
     print('Calculating frequency of single terms...')
-    frequency_single, number_of_tweets = process_tweets(terms_single, 
+    frequency_single, number_of_tweets = extract_frequencies(terms_single, 
                                                         'data/stream_trump.json')
 
     print('Calculating frequency of bigrams...')
-    frequency_bigrams, number_of_bigrams = process_tweets(terms_bigrams, 
+    frequency_bigrams, number_of_bigrams = extract_frequencies(terms_bigrams, 
                                                          'data/stream_trump.json', 
                                                          bigram=True)
 
     print('Creating frequency of co-occurrence matrix for single terms...')
-    frequency_cooccur_single, _ = process_tweets(terms_cooccurences, 
-                                                 'data/stream_trump.json') 
+    frequency_cooccur_single = build_cooccurrences('data/stream_trump.json') 
 
     print('Creating frequency of co-occurrence matrix for bigrams...')
-    frequency_cooccur_bigrams, _ = process_tweets(terms_cooccurences, 
-                                                  'data/stream_trump.json', 
-                                                  bigram=True) 
+    frequency_cooccur_bigrams = build_cooccurrences('data/stream_trump.json', 
+                                                       bigram=True) 
 
     print('Calculating probabilities for single terms...')
     prob_single, prob_cooccur_single = compute_term_probabilites(frequency_single, 

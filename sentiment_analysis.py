@@ -1,5 +1,5 @@
 import math
-from feature_extractor import terms_single, terms_cooccurences, process_tweets, terms_bigrams
+from feature_extractor import terms_single, terms_bigrams
 from collections import defaultdict
 import operator
 import opinion_lexicon
