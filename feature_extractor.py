@@ -37,14 +37,11 @@ stop = stopwords.words('english') + punctuation + ignore
 A set of functions that filter individual tweets during feature exraction.
 """
 def terms_single(tweet, lower=True):
-    """ Return a set of the terms in a tweet i.e. each term will be included 
-        only once.
-
-    Excludes stop words.
+    """ Returns the set of the terms in a tweet i.e. each term will be 
+        included only once. Excludes stop words.
     
     Args:
-        tweet (dict): A dictionary contain tweet data from the Twitter api
-
+        tweet (dict): A dictionary containing tweet data from the Twitter api
     Keyword args:
         lower (bool): Defaults to true in order to normalise all terms by 
             converting to lower case.
@@ -53,13 +50,10 @@ def terms_single(tweet, lower=True):
 
 
 def terms_hash(tweet, lower=True):
-    """ Return a list of the hashtags in a tweet.
- 
-    Excludes stop words.   
+    """ Return a list of the hashtags in a tweet. Excludes stop words.   
  
     Args:
-        tweet (dict): A dictionary contain tweet data from the Twitter api
-
+        tweet (dict): A dictionary containing tweet data from the Twitter api
     Keyword args:
         lower (bool): Defaults to true in order to normalise all terms by 
             converting to lower case.
@@ -71,12 +65,10 @@ def terms_hash(tweet, lower=True):
 
 def terms_only(tweet, lower=True):
     """ Return only the terms in a tweet i.e. no hashtags, or "@" mentions.
-    
     Excludes stop words.
 
     Args:
-        tweet (dict): A dictionary contain tweet data from the Twitter api
-
+        tweet (dict): A dictionary containing tweet data from the Twitter api
     Keyword args:
         lower (bool): Defaults to true in order to normalise all terms by 
             converting to lower case.
@@ -88,13 +80,10 @@ def terms_only(tweet, lower=True):
 
 
 def terms_all(tweet, lower=True):
-    """ Return a lost of all of the terms in a tweet.
-
-    Excluses stop words.
+    """ Return a list of all of the terms in a tweet. Excluses stop words.
     
     Args:
-        tweet (dict): A dictionary contain tweet data from the Twitter api
-
+        tweet (dict): A dictionary containing tweet data from the Twitter api
     Keyword args:
         lower (bool): Defaults to true in order to normalise all terms by 
             converting to lower case.
@@ -105,13 +94,11 @@ def terms_all(tweet, lower=True):
 
 
 def terms_bigrams(tweet):
-    """ Return all of the bigrams in a tweet.
-
-    Excludes stop words.
+    """ Returns a list of all bigrams from a tweet. Excludes stop words.
     Normalises all terms by converting to lowercase. 
     
     Args:
-        tweet (dict): A dictionary contain tweet data from the Twitter api 
+        tweet (dict): A dictionary containing tweet data from the Twitter api
     """
     return list(bigrams(terms_all(tweet, lower=True)))
 
@@ -128,10 +115,13 @@ def extract_frequencies(filtering_method, filepath, bigram=False):
         fitlering_method (function): filtering method used in order to 
             select the terms that will be returned
         filepath (string): filepath for json file contain downloaded tweet data
-
     Keyword args:
         bigram (bool): optional flag to extract bigrams rather than single
             terms. Default to False.
+    Return:
+        (tuple)
+            term_frequency (dict): terms and their counts
+            number_of_tweets (int): the number of tweets in the data set
     """
     term_frequency = Counter()
 
@@ -147,18 +137,18 @@ def extract_frequencies(filtering_method, filepath, bigram=False):
 
 
 def __extend_cooccurrences(matrix, terms_list, bigrams_list=[]):
-    """ Helper method for building the co-occurrence matrix
-
-    Extends the matrix passed in by added the terms/bigrams to it. 
+    """ Helper method for building the co-occurrence matrix.
+    Extends the matrix passed in by adding the terms/bigrams to it. 
 
     Args:
         matrix (default): 2d defaultdict containing ints
         terms_list (list): a list of strings contain terms to be added to 
             the matrix
-
     Keywoard args:
         bigrams_list (list): a list of tuples representing bigrams to be 
             added to the matrix
+    Returns:
+        (dict): terms and their frequencies of co-occurrence
     """
     if bigrams_list:
         for i in range(len(bigrams_list)-1):            
@@ -174,24 +164,20 @@ def __extend_cooccurrences(matrix, terms_list, bigrams_list=[]):
 
 
 def build_cooccurrences(filepath, bigram=False):
-    """ Building the co-occurrence matrix based upon tweet data
- 
-    Builds the matrix such that matrix[term1][term1] contains the number of
-    times term1 and term2 have occured together.
-
-    If an optional bigrams list is passed in the for will be: 
-        matrix[bigram][term]
+    """ Building the co-occurrence matrix based upon tweet data, such that 
+    matrix[term1][term1] contains the number of times term1 and term2 have
+    occured together.
 
     Args:
         filepath (string): filepath json file contain downloaded tweet data
-
     Keywoard args:
         bigram (bool): creates matrix with bigrams for the first dimension
             if True. False by default
+    Returns:
+        (dict): terms and their frequencies of co-occurrence
     """
     term_frequency = defaultdict(lambda : defaultdict(int))
     # TODO: look into scipy.sparse to use sparse matrix instead of defaultdict
-
 
     with open(fpath, 'r') as f:
         for line in f: 

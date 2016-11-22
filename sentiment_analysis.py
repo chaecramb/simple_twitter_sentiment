@@ -19,8 +19,9 @@ def compute_probabilites(frequencies, cooccur_matrix, number_of_tweets):
         freqencies (dict): Dictionary of term or bigram frequencies
         cooccur_matrix (dict): 2d dict matrix of two terms, or a bigram and a
             term, and a count of their co-occurrences
+        number_of_tweets (int): the number of tweets in the data set
     Returns:
-        tuple
+        (tuple)
             prob_term (dict): terms and their probabilites
             prob_cooccur (dict): matrix of two terms (or a bigram and a term) 
                 and their probability of co-occurring
@@ -64,7 +65,20 @@ def compute_pmi(cooccur_matrix, prob_cooccur, prob_single, prob_bigram={}):
     return pmi
 
 
-def compute_semantic_orientation(prob_term, pmi, vocab):     
+def compute_semantic_orientation(prob_term, pmi, vocab): 
+    """ Calculates the semantic orientation of each term (or bigram), as 
+    defined by the difference between its associations with positive and 
+    negative words
+
+    Args:
+        prob_term (dict): terms and their probabilites
+        pmi (dict): matrix of two terms (or a bigram and a term) 
+            and their calculated PMI
+        vocab (dict): contains an list a of 'positive_vocab' and a list
+            of 'negative_vocab'
+    Returns:
+        (dict): terms and their semantic orientation. 
+    """   
     semantic_orientation = {}
     for term, _ in prob_term.items():
         positive_assoc = sum(pmi[term][positive_word] for positive_word in vocab['positive_vocab'])
