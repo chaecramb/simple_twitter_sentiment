@@ -18,15 +18,13 @@ def compute_probabilites(frequencies, cooccur_matrix, number_of_tweets):
     Args:
         freqencies (dict): Dictionary of term or bigram frequencies
         cooccur_matrix (dict): 2d dict matrix of two terms, or a bigram and a
-        term, and a count of their co-occurrences
-
+            term, and a count of their co-occurrences
     Returns:
-    tuple
-        prob_term : a dict of terms and their probabilites
-        prob_cooccur : a dict matrix of two terms (or a bigram and a term) 
-        and their probability of co-occurring
+        tuple
+            prob_term (dict): terms and their probabilites
+            prob_cooccur (dict): matrix of two terms (or a bigram and a term) 
+                and their probability of co-occurring
     """
-
     prob_term = {}
     prob_cooccur = defaultdict(lambda : defaultdict(int))
     
@@ -41,6 +39,20 @@ def compute_probabilites(frequencies, cooccur_matrix, number_of_tweets):
 
 
 def compute_pmi(cooccur_matrix, prob_cooccur, prob_single, prob_bigram={}):
+    """ Calculates pointwise mutual information (closeness) between terms 
+
+    Args:
+        cooccur_matrix (dict): matrix of two terms, or a bigram and a
+            term, and a count of their co-occurrences
+        prob_cooccur (dict): matrix of two terms (or a bigram and a term) 
+            and their probability of co-occurring
+        prob_single (dict): a dict of terms and their probabilites
+    Keyword args:
+        prob_bigram : single terms and their probabilites
+    Returns:
+        (dict): matrix of two terms (or a bigram and a term) 
+            and their calculated PMI
+    """
     pmi = defaultdict(lambda : defaultdict(int))
     for term1 in prob_bigram or prob_single:
         for term2 in cooccur_matrix[term1]:
