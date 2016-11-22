@@ -34,7 +34,8 @@ def compute_probabilites(frequencies, cooccur_matrix, number_of_tweets):
         prob_term[term1] = occurrances / number_of_tweets
         for term2 in cooccur_matrix[term1]:
             # Calculate the probability of term1 co-occurring with term2
-            prob_cooccur[term1][term2] = cooccur_matrix[term1][term2] / number_of_tweets
+            prob_cooccur[term1][term2] = cooccur_matrix[term1][term2] 
+                                         / number_of_tweets
 
     return (prob_term, prob_cooccur)
 
@@ -81,7 +82,9 @@ def compute_semantic_orientation(prob_term, pmi, vocab):
     """   
     semantic_orientation = {}
     for term, _ in prob_term.items():
-        positive_assoc = sum(pmi[term][positive_word] for positive_word in vocab['positive_vocab'])
-        negative_assoc = sum(pmi[term][negative_word] for negative_word in vocab['negative_vocab'])
+        positive_assoc = sum(pmi[term][positive_word] 
+                            for positive_word in vocab['positive_vocab'])
+        negative_assoc = sum(pmi[term][negative_word] 
+                             for negative_word in vocab['negative_vocab'])
         semantic_orientation[term] = positive_assoc - negative_assoc
     return semantic_orientation
